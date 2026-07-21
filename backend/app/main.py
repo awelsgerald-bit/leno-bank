@@ -7,13 +7,10 @@ from app.api.transactions import router as tx_router
 app = FastAPI(title=settings.PROJECT_NAME, version="1.0.0")
 
 origins = [
-    # Local development
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
-
-    # Production frontend
     "https://leno-bank.vercel.app",
 ]
 
