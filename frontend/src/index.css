@@ -36,3 +36,20 @@ body {
 #root {
   min-height: 100vh;
 }
+
+/* === Custom Utilities for 3D Virtual Card Flip (Tailwind v4 syntax) === */
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
+@utility transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+@utility backface-hidden {
+  backface-visibility: hidden;
+}
+
+@utility rotate-y-180 {
+  transform: rotateY(180deg);
+}

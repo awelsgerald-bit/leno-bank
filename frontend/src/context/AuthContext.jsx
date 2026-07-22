@@ -1,73 +1,39 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import * as authApi from '../api/auth'
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext(null)
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  // Demo user default with 'admin' role
+  const [user, setUser] = useState({
+    id: '1',
+    name: 'Charlie',
+    email: 'charlie@test.com',
+    accountNumber: '5959504955',
+    role: 'admin', // Set to 'admin' or 'user'
+  });
+  const [loading, setLoading] = useState(false);
 
-  const refreshProfile = useCallback(async () => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      setUser(null)
-      setLoading(false)
-      return null
-    }
+  const isAuthenticated = Boolean(user);
 
-    try {
-      const profile = await authApi.getProfile()
-      setUser(profile)
-      return profile
-    } catch {
-      localStorage.removeItem('token')
-      setUser(null)
-      return null
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    refreshProfile()
-  }, [refreshProfile])
-
-  const login = async (credentials) => {
-    const { access_token } = await authApi.login(credentials)
-    localStorage.setItem('token', access_token)
-    return refreshProfile()
-  }
-
-  const register = async (payload) => {
-    await authApi.register(payload)
-    return login({ email: payload.email, password: payload.password })
-  }
+  const login = (userData) => {
+    setUser(userData);
+  };
 
   const logout = () => {
-    localStorage.removeItem('token')
-    setUser(null)
-  }
+    setUser(null);
+  };
 
-  const value = useMemo(
-    () => ({
-      user,
-      loading,
-      isAuthenticated: Boolean(user),
-      login,
-      register,
-      logout,
-      refreshProfile,
-    }),
-    [user, loading, refreshProfile],
-  )
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, loading, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within AuthProvider')
+    throw new Error('useAuth must be used within an AuthProvider');
   }
-  return context
+  return context;
 }
