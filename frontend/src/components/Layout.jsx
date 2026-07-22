@@ -18,13 +18,16 @@ export default function Layout() {
       <aside className="hidden md:flex flex-col w-64 bg-slate-900 text-white p-6 fixed h-full z-20 justify-between">
         <div className="space-y-8">
           
-          {/* Brand Header */}
+          {/* BRAND HEADER WITH GROWTH NODE LOGO */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center font-bold text-slate-950 text-base">
-              L
-            </div>
+            <svg className="w-8 h-8 shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="8" fill="#0f172a" />
+              <path d="M8 20L13 15L17 19L24 11" stroke="#10b981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="24" cy="11" r="2.5" fill="#34d399" />
+            </svg>
+            
             <div>
-              <h1 className="text-base font-bold tracking-tight text-white">LENO BANK</h1>
+              <h1 className="text-base font-bold tracking-tight text-white leading-tight">LENO BANK</h1>
               <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Enterprise</p>
             </div>
           </div>
