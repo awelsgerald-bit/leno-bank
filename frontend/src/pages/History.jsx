@@ -44,7 +44,7 @@ export default function History() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Transaction history</h1>
         <p className="mt-1 text-sm text-muted">All transfers sent and received on your account.</p>
@@ -66,7 +66,7 @@ export default function History() {
             {transactions.map((tx) => {
               const isOutgoing = tx.sender_id === user?.id
               return (
-                <li key={tx.id} className="flex items-center justify-between gap-4 px-5 py-4">
+                <li key={tx.id} className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
                   <div>
                     <p className="font-medium text-slate-900">
                       {isOutgoing ? 'Sent transfer' : 'Received transfer'}
